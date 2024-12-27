@@ -11,14 +11,11 @@
             background: linear-gradient(135deg, #ff9a9e, #fad0c4);
             color: white;
             text-align: center;
-            overflow: hidden;
-            height: 100vh;
+            overflow-x: hidden;
         }
 
         .container {
-            position: relative;
-            top: 50%;
-            transform: translateY(-50%);
+            margin: 20px auto;
         }
 
         h1 {
@@ -33,7 +30,7 @@
         }
 
         .hearts {
-            position: absolute;
+            position: fixed;
             width: 100%;
             height: 100%;
             overflow: hidden;
@@ -87,8 +84,8 @@
         }
 
         .image-gallery {
-            display: flex;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(3, auto);
             justify-content: center;
             gap: 15px;
             margin-top: 20px;
@@ -112,6 +109,61 @@
                 transform: scale(1.1);
             }
         }
+
+        .side-cakes {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            pointer-events: none;
+        }
+
+        .side-cakes img {
+            width: 100px;
+            height: auto;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .fireworks {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .firework {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: radial-gradient(circle, white, transparent);
+            border-radius: 50%;
+            animation: explode 1.5s ease-out forwards;
+        }
+
+        @keyframes explode {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(50);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 <body>
@@ -119,32 +171,28 @@
         <h1>Chúc Mừng Sinh Nhật Bạn Nhỏ!</h1>
         <p>Một ngày thật ngọt ngào và tràn đầy yêu thương nhé!</p>
         <div class="image-gallery">
-            <img src="image1.jpg" alt="Image 1">
-            <img src="image2.jpg" alt="Image 2">
-            <img src="image3.jpg" alt="Image 3">
-            <img src="image4.jpg" alt="Image 4">
-            <img src="image5.jpg" alt="Image 5">
-            <img src="image6.jpg" alt="Image 6">
-            <img src="image7.jpg" alt="Image 7">
-            <img src="image8.jpg" alt="Image 8">
-            <img src="image9.jpg" alt="Image 9">
-            <img src="image10.jpg" alt="Image 10">
-            <img src="image11.jpg" alt="Image 11">
-            <img src="image12.jpg" alt="Image 12">
-            <img src="image13.jpg" alt="Image 13">
-            <img src="image14.jpg" alt="Image 14">
-            <img src="image15.jpg" alt="Image 15">
-            <img src="image16.jpg" alt="Image 16">
-            <img src="image17.jpg" alt="Image 17">
-            <img src="image18.jpg" alt="Image 18">
-            <img src="image19.jpg" alt="Image 19">
-            <img src="image20.jpg" alt="Image 20">
+            <img src="cmsn/image1.jpg" alt="Image 1">
+            <img src="cmsn/image2.jpg" alt="Image 2">
+            <img src="cmsn/image3.jpg" alt="Image 3">
+            <img src="cmsn/image4.jpg" alt="Image 4">
+            <img src="cmsn/image5.jpg" alt="Image 5">
+            <img src="cmsn/image6.jpg" alt="Image 6">
+            <img src="cmsn/image7.jpg" alt="Image 7">
+            <img src="cmsn/image8.jpg" alt="Image 8">
+            <img src="cmsn/image9.jpg" alt="Image 9">
+            <img src="cmsn/image10.jpg" alt="Image 10">
+            <img src="cmsn/image11.jpg" alt="Image 11">
+            <img src="cmsn/image12.jpg" alt="Image 12">
+            <img src="cmsn/image13.jpg" alt="Image 13">
+            <img src="cmsn/image14.jpg" alt="Image 14">
+            <img src="cmsn/image15.jpg" alt="Image 15">
         </div>
     </div>
     <div class="hearts" id="hearts"></div>
-
+    <div class="fireworks" id="fireworks"></div>
     <script>
         const heartsContainer = document.getElementById('hearts');
+        const fireworksContainer = document.getElementById('fireworks');
 
         function createHeart() {
             const heart = document.createElement('div');
@@ -164,7 +212,22 @@
             }, 5000);
         }
 
+        function createFirework() {
+            const firework = document.createElement('div');
+            firework.classList.add('firework');
+
+            firework.style.left = Math.random() * 100 + '%';
+            firework.style.top = Math.random() * 100 + '%';
+
+            fireworksContainer.appendChild(firework);
+
+            setTimeout(() => {
+                firework.remove();
+            }, 1500);
+        }
+
         setInterval(createHeart, 200);
+        setInterval(createFirework, 500);
     </script>
 </body>
 </html>
